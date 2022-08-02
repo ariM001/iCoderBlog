@@ -5,8 +5,10 @@ from django.http import HttpResponse  # added manually
 
 
 def BlogHome(request):
-    return HttpResponse("Blog Home")
+    return render(request, "blog/blogHome.html")
 
 
 def BlogPost(request, slug):
-    return HttpResponse(f"Blog Post : {slug}")
+    params = {'slug':slug}
+    return render(request, "blog/blogPost.html", params)
+

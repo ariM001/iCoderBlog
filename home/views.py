@@ -1,15 +1,24 @@
 from django.http import HttpResponse
-from django.shortcuts import render, HttpResponse
-from . import views
+from django.shortcuts import render
+
+from home.models import Contact   # added manually
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Home")
+    return render(request, "home/home.html")
+    # return HttpResponse("Home")
 
 
 def contact(request):
-    return HttpResponse("Contact")
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        content = request.POST.get('content')
+        contact = Contact(name=name, email=email, phone=phone, content=content)
+        contact.save()
+    return render(request, "home/contact.html")
 
 
 def about(request):
-    return HttpResponse("About")
+    return render(request, "home/about.html")
