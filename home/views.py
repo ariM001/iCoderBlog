@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from home.models import Contact  # added manually
+from django.contrib import messages # added manually
 
 # Create your views here.
 def home(request):
@@ -13,8 +14,12 @@ def contact(request):
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         content = request.POST.get("content")
-        contact = Contact(name=name, email=email, phone=phone, content=content)
-        contact.save()
+        if len(name)<4 or len(email)<10 or len(phone)<10 or len(content)<10:
+            messages.error(request, 'Please fill all the fields correctly!')
+        else:
+            contact = Contact(name=name, email=email, phone=phone, content=content)
+            contact.save()
+            messages.success(request,'Your message has been sent successfully!')
     return render(request, "home/contact.html")
 
 
