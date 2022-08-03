@@ -2,5 +2,53 @@
 {% block title %}About{% endblock title %}
 {% block activeAbout %}active{% endblock activeAbout %}
 {% block body %}
-This is the About Page
+{% load static %}
+<div class="container my-4">
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">It all started with iCoder's idea. <span class="text-muted">It’ll blow
+                        your
+                        mind.</span>
+                </h2>
+                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting
+                    prose
+                    here.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src={%static "home/about/about-1.jpg" %} class="bd-placeholder-img img-fluid" width="400" height="400" alt="">
+            </div>
+        </div>
+
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">We started iCoder in 2022. <span class="text-muted">It’ll blow your
+                        mind.</span>
+                </h2>
+                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting
+                    prose
+                    here.
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src={%static "home/about/about-2.jpg" %} class="bd-placeholder-img img-fluid" width="400" height="400" alt="">
+            </div>
+        </div>
+
+        <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your
+                        mind.</span>
+                </h2>
+                <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting
+                    prose
+                    here.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src={%static "home/about/about-3.jpg" %} class="bd-placeholder-img img-fluid" width="400" height="400" alt="">
+            </div>
+        </div>
+    </div>
+
 {% endblock body %}
