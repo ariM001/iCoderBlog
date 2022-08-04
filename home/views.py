@@ -14,8 +14,20 @@ def home(request):
 
 def search(request):
     query = request.GET['query']
-    posts = Post.objects.filter(title__icontains=query)
-    params = {'posts': posts}
+    if len(query) > 60 or len(query) == 0:
+        posts = Post.objects.none()
+
+    else:
+        postsTitle = Post.objects.filter(title__icontains=query)
+        postsContent = Post.objects.filter(content__icontains=query)
+        postsAuthor = Post.objects.filter(author__icontains=query)
+        posts = postsTitle.union(postsContent).union(postsAuthor)
+
+    if posts.count() == 0:
+        messages.warning(request,
+                         "No results found! Please search with related queries")
+
+    params = {'posts': posts, 'query': query}
     return render(request, "home/search.html", params)
 
 

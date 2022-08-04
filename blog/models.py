@@ -6,7 +6,7 @@ from django.db import models
 class Post(models.Model):
     sno = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    content = models.CharField(max_length=5000)
+    content = models.TextField(max_length=5000)
     image = models.ImageField(upload_to="blog/post_images", default="")
     slug = models.CharField(max_length=250)
     author = models.CharField(max_length=100)

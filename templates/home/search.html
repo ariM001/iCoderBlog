@@ -2,26 +2,47 @@
 {% block title %}Search Results{% endblock title %}
 {% block body %}
 <div class="container my-3">
-    <h2 class="text-center">Search Results : </h2>
+    <h2 class="">Search Results : </h2>
 
-    {% for i in posts %}
-    <div class="col-md-12">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-primary">Post By : {{i.author}}</strong>
-                <h3 class="mb-0">{{i.title}}</h3>
-                <div class="mb-1 text-muted">{{i.timeStamp}}</div>
-                <p class="card-text mb-auto">{{i.content|truncatechars:200}}</p>
-                <a href="/blog/{{i.slug}}"><button class="btn btn-primary mt-3 p-2 btn-sm">Continue Reading</button></a>
-                
-            </div>
-            <div class="col-auto d-flex align-items-center">
-                <img src="/media/{{i.image}}" class="img-thumbnail"
-                    style="width:280px; height: 180px;;" alt="{{i.title}} image">
-            </div>
+    {% if posts|length < 1 %} <div class="my-2">
+        <h5>No Results Found !</h5>
+        Your query : <b>{{query|truncatechars:20}}</b> did not match any documents. <br>
+        Suggestion :
+        <ul>
+            <li>
+                Make sure that all words are spelled correctlly.
+            </li>
+            <li>
+                Try different keywords.
+            </li>
+            <li>
+                Try more general keywords.
+            </li>
+            <li>
+                Try fewer keywords.
+            </li>
+        </ul>
+</div>
+{% endif %}
+
+{% for i in posts %}
+<div class="col-md-12">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Post By : {{i.author}}</strong>
+            <h3 class="mb-0">{{i.title}}</h3>
+            <div class="mb-1 text-muted">{{i.timeStamp}}</div>
+            <p class="card-text mb-auto">{{i.content|truncatechars:200}}</p>
+            <a href="/blog/{{i.slug}}"><button class="btn btn-primary mt-3 p-2 btn-sm">Continue Reading</button></a>
+
+        </div>
+        <div class="col-auto d-flex align-items-center">
+            <img src="/media/{{i.image}}" class="img-thumbnail" style="width:280px; height: 180px;;"
+                alt="{{i.title}} image">
         </div>
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 
 </div>
 {% endblock body %}
