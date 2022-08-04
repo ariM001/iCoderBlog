@@ -1,11 +1,22 @@
+from turtle import title
 from django.shortcuts import render
 
 from home.models import Contact  # added manually
-from django.contrib import messages # added manually
+from django.contrib import messages  # added manually
+from blog.models import Post  # added manually
 
 # Create your views here.
+
+
 def home(request):
     return render(request, "home/home.html")
+
+
+def search(request):
+    query = request.GET['query']
+    posts = Post.objects.filter(title__icontains=query)
+    params = {'posts': posts}
+    return render(request, "home/search.html", params)
 
 
 def contact(request):
@@ -14,12 +25,14 @@ def contact(request):
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         content = request.POST.get("content")
-        if len(name)<4 or len(email)<10 or len(phone)<10 or len(content)<10:
+        if len(name) < 4 or len(email) < 10 or len(phone) < 10 or len(content) < 10:
             messages.error(request, 'Please fill all the fields correctly!')
         else:
-            contact = Contact(name=name, email=email, phone=phone, content=content)
+            contact = Contact(name=name, email=email,
+                              phone=phone, content=content)
             contact.save()
-            messages.success(request,'Your message has been sent successfully!')
+            messages.success(
+                request, 'Your message has been sent successfully!')
     return render(request, "home/contact.html")
 
 
