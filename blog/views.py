@@ -11,5 +11,5 @@ def BlogHome(request):
 
 
 def BlogPost(request, slug):
-    post = Post.objects.filter(slug=slug)[0]
+    post = Post.objects.filter(slug=slug).first()
     return render(request, "blog/blogPost.html", {'post': post})
