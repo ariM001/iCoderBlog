@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-from django.contrib.messages import constants as messages # added manually
+from django.contrib.messages import constants as messages  # added manually
+import os  # added manually
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,8 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig', # added manually
-    'home.apps.HomeConfig', # added manually
+    'blog.apps.BlogConfig',     # added manually
+    'home.apps.HomeConfig',     # added manually
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,3 +133,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+
+# Base url to serve media files
+MEDIA_URL = '/media/'           # added manually
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')       # added manually
