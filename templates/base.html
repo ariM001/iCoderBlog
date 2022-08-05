@@ -11,10 +11,16 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <title>{% block title %}{% endblock title %}</title>
+  <style>
+    .btn-warning:hover {
+      color: #ffffff;
+      background-color: #238b13;
+    }
+  </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #6e07aa;">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">iCoder</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -45,8 +51,8 @@
             aria-label="Search">
           <button class="btn btn-outline-light me-4" type="submit">Search</button>
         </form>
-        <button class="btn btn-danger me-2 ms-4" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#signupModal">Sign
+        <button class="btn btn-warning me-2 ms-4" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign
           Up</button>
       </div>
     </div>
@@ -61,19 +67,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="/signup/" method="post">{% csrf_token %}
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="email" class="form-control" id="username" name="username"
+              <input type="text" class="form-control" id="username" name="username"
                 placeholder="Choose a unique username">
             </div>
             <div class="mb-3">
               <label for="fname" class="form-label">First Name</label>
-              <input type="email" class="form-control" id="fname" name="fname" placeholder="First Name">
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
             </div>
             <div class="mb-3">
               <label for="lname" class="form-label">Last Name</label>
-              <input type="email" class="form-control" id="lname" name="lname" placeholder="Last Name">
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
@@ -90,7 +96,7 @@
               <label for="pass2" class="form-label">Re-enter password</label>
               <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-enter password">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Sign Me Up</button>
           </form>
         </div>
         <div class="modal-footer">

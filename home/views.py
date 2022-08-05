@@ -1,9 +1,9 @@
-from turtle import title
-from django.shortcuts import render
+from django.shortcuts import render, redirect, HttpResponse
 
 from home.models import Contact  # added manually
 from django.contrib import messages  # added manually
 from blog.models import Post  # added manually
+from django.contrib.auth.models import User  # added manually
 
 # Create your views here.
 
@@ -50,3 +50,28 @@ def contact(request):
 
 def about(request):
     return render(request, "home/about.html")
+
+
+def handleSignup(request):
+    if request.method == "POST":
+        # Obtaining the post parameters
+        print(request.POST)
+        username = request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+
+        # check for erroneous inputs
+
+        # create the user
+        myuser = User.objects.create_user(username, email, pass1)
+        myuser.first_name = fname
+        myuser.last_name = lname
+        myuser.save()
+        messages.success(
+            request, "Your iCoder account has been successfully created")
+        return redirect('home')
+    else:
+        return HttpResponse("404 Not Found!")
