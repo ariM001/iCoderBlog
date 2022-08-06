@@ -55,7 +55,6 @@ def about(request):
 def handleSignup(request):
     if request.method == "POST":
         # Obtaining the post parameters
-        print(request.POST)
         username = request.POST["username"]
         fname = request.POST["fname"]
         lname = request.POST["lname"]
@@ -94,6 +93,7 @@ def handleSignup(request):
         myuser.save()
         messages.success(request, "Your iCoder account has been successfully created")
         return redirect("home")
+        
     else:
         return HttpResponse("404 Not Found!")
 
