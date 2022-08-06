@@ -4,9 +4,10 @@ from home.models import Contact  # added manually
 from django.contrib import messages  # added manually
 from blog.models import Post  # added manually
 from django.contrib.auth.models import User  # added manually to add user in database
+from django.contrib.auth import authenticate, login, logout     # added manually
+
 
 # Create your views here.
-
 
 def home(request):
     return render(request, "home/home.html")
@@ -64,27 +65,27 @@ def handleSignup(request):
 
         # check for erroneous inputs
         # usename should be under 10 characters
-        if len(username)>10: 
+        if len(username) > 10:
             messages.error(request, "Max length of username is 10")
             return redirect("home")
 
         # username should be alphanumeric
-        if not username.isalnum ():
+        if not username.isalnum():
             messages.error(request, "Username can contain only letters and numbers")
             return redirect("home")
 
         # username should be lowercase
         for i in username:
-            if (not i.isnumeric()) and (i== i.upper ()):
-                messages.error(request, "Username should not contain any uppercase characters")
+            if (not i.isnumeric()) and (i == i.upper()):
+                messages.error(
+                    request, "Username should not contain any uppercase characters"
+                )
                 return redirect("home")
-        
+
         # both the password hould match
         if pass1 != pass2:
             messages.error(request, "Passwords mismatched")
             return redirect("home")
-
-
 
         # create the user
         myuser = User.objects.create_user(username, email, pass1)
@@ -95,3 +96,30 @@ def handleSignup(request):
         return redirect("home")
     else:
         return HttpResponse("404 Not Found!")
+
+
+def handleLogin(request):
+    # get the request parameters
+    if request.method == "POST":
+        loginusername = request.POST["loginusername"]
+        loginpass = request.POST["loginpass"]
+
+        user = authenticate(username = loginusername, password = loginpass)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Logged in successfully")
+            return redirect('home')
+        else:
+            messages.error(request,"Invalid Credentials, please try again")
+            return redirect('home')
+
+    else:
+       return HttpResponse("404 Not Found!")
+
+def handleLogout(request):
+    logout(request)
+    messages.success(request, "Logged out successfully")
+    return redirect('home')
+
+
