@@ -1,8 +1,6 @@
 {
     "files.autoSave": "onFocusChange",
-    "editor.formatOnSave": true,
-    "python.autoComplete.extraPaths": [],
-    "python.languageServer": "Default",
-    "vsintellicode.python.completionsEnabled": true,
-    "python.analysis.extraPaths": []
+    "editor.fontSize": 16,
+    "python.formatting.provider": "black",
+
 }

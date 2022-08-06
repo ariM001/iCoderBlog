@@ -52,8 +52,7 @@
           <button class="btn btn-outline-light me-4" type="submit">Search</button>
         </form>
         <button class="btn btn-warning me-2 ms-4" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign
-          Up</button>
+        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
       </div>
     </div>
   </nav>
@@ -71,30 +70,30 @@
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" id="username" name="username"
-                placeholder="Choose a unique username">
+                placeholder="Choose a unique username (Lowercase and alphanumerric)" required>
             </div>
             <div class="mb-3">
               <label for="fname" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+              <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required>
             </div>
             <div class="mb-3">
               <label for="lname" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email"
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required
                 aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="pass1" class="form-label">Password</label>
               <input type="password" class="form-control" id="pass1" name="pass1"
-                placeholder="Choose a strong password">
+                placeholder="Choose a strong password" required>
             </div>
             <div class="mb-3">
               <label for="pass2" class="form-label">Re-enter password</label>
-              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-enter password">
+              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Re-enter password" required>
             </div>
             <button type="submit" class="btn btn-primary">Sign Me Up</button>
           </form>
