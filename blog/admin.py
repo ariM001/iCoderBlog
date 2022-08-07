@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import Post        # added manually
+from .models import Post, BlogComment  # added manually
+
 # Register your models here.
-admin.site.register(Post)       # added manually
+admin.site.register((Post, BlogComment))  # added manually
