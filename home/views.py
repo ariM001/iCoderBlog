@@ -7,8 +7,8 @@ from django.contrib.auth.models import User  # added manually to add user in dat
 from django.contrib.auth import authenticate, login, logout     # added manually
 
 
-# Create your views here.
 
+# HTML pages
 def home(request):
     return render(request, "home/home.html")
 
@@ -52,6 +52,7 @@ def about(request):
     return render(request, "home/about.html")
 
 
+#  Authentication APIs
 def handleSignup(request):
     if request.method == "POST":
         # Obtaining the post parameters
@@ -96,7 +97,6 @@ def handleSignup(request):
         
     else:
         return HttpResponse("404 Not Found!")
-
 
 def handleLogin(request):
     # get the request parameters
