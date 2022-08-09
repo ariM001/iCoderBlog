@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Post, BlogComment          # added manually
 from django.contrib import messages            # added manually
-# Create your views here.
+from blog.templatetags import extras           # added manually
 
 
 def BlogHome(request):
@@ -12,8 +12,17 @@ def BlogHome(request):
 
 def BlogPost(request, slug):
     post = Post.objects.filter(slug=slug).first()
-    comments = BlogComment.objects.filter(post = post)
-    params = {'post': post, 'comments':comments}
+    comments = BlogComment.objects.filter(post = post, parent=None)   # these are parent comments
+    replies = BlogComment.objects.filter(post = post).exclude(parent=None)  # these are replies ( all comments - parent comments)
+
+    replyDict = {}
+    for reply in replies:
+        if reply.parent.sno not in replyDict.keys():
+            replyDict[reply.parent.sno] = [reply]
+        else:
+            replyDict[reply.parent.sno].append(reply)
+
+    params = {'post': post, 'comments':comments, 'replyDict':replyDict}
     return render(request, "blog/blogPost.html", params)
 
 
@@ -25,13 +34,15 @@ def postComment(request):
         parentSno = request.POST["parentSno"]
         user = request.user
 
-        if parentSno == "":                 # when it is a parent comment itself
+        # when it is a parent comment itself
+        if parentSno == "":                
             comment = BlogComment(comment=comment, user=user, post=post)
             comment.save()
             messages.success(request,"Comment added successfully")
         
-        else:                               # when it is a child comment
-            parent = BlogComment.objects.get(sno=parentSno)     # finding the particular comment with its sno
+        # when it is a child comment , here parentSno is not null
+        else:                               
+            parent = BlogComment.objects.get(sno=parentSno)    # finding the particular comment with its sno
             comment = BlogComment(comment=comment, user=user, post=post, parent=parent)
             comment.save()
             messages.success(request,"Reply added successfully")

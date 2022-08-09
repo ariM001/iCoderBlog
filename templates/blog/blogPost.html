@@ -3,9 +3,9 @@
 {% block activeLink %}active{% endblock activeLink %}
 {% block body %}
 {% load humanize %}
+{% load extras %}
 
 <h2 class="text-center mt-3">iCoder Blogs</h2>
-
 <div class="container  p-4 my-4">
     <div class="row g-5">
         <div class="col-md-8">
@@ -38,6 +38,8 @@
     </div>
 </div>
 
+
+<!-- below code handles posting comment-->
 <div class="container my-4">
     <h3>Comments <span class="badge rounded-pill bg-secondary"
             style="font-size: medium;vertical-align: text-bottom;opacity: .9;">{{comments.count}}</span></h3>
@@ -49,7 +51,7 @@
                 <input class="form-control" type="text" name="comment" required>
             </div>
             <input type="hidden" name="postSno" value="{{post.sno}}">
-            <input type="hidden" name="parentSno" value="">
+            <input type="hidden" name="parentSno" value="">  <!-- for parent comment parentSno is null -->
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -58,6 +60,7 @@
     {% endif %}
 </div>
 
+<!-- below code handles to view comments -->
 <div class="container my-4">
     {% for comment in comments %}
     <div class="row my-4 py-2">
@@ -67,7 +70,7 @@
                 style="vertical-align: text-bottom; opacity: .8;">{{comment.timeStamp | naturaltime}}</span>
             <div>{{comment.comment}}</div>
 
-
+<!-- below code handles adding a reply to a comment -->
             <div class="reply mx-0 mt-2">
                 <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse"
                     data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false"
@@ -82,11 +85,20 @@
                                 <input class="form-control" type="text" name="comment" required>
                             </div>
                             <input type="hidden" name="postSno" value="{{post.sno}}">
-                            <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            <input type="hidden" name="parentSno" value="{{comment.sno}}">  <!-- reply is saved under a particular parent comment -->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>
+
+                <!-- below code handles to render the replies -->
+                <div class="replies bg-warning my-2 ms-2 ">
+                    {% for reply in replyDict|get_val:comment.sno %}
+                    {{reply}}
+                    <br>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
