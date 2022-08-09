@@ -49,10 +49,10 @@
                 <input class="form-control" type="text" name="comment" required>
             </div>
             <input type="hidden" name="postSno" value="{{post.sno}}">
+            <input type="hidden" name="parentSno" value="">
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
     {% else %}
     <h6>Please log in to post comments on iCoder</h6>
     {% endif %}
@@ -61,15 +61,36 @@
 <div class="container my-4">
     {% for comment in comments %}
     <div class="row my-4 py-2">
-        <div class="col-md-1">
-            <img src="/media/blog/user_images/user.png" class="w-75">
-        </div>
+        <div class="col-md-1"><img src="/media/blog/user_images/user.png" class="w-75"></div>
         <div class="col-md-11">
-            <b>{{comment.user.username}}</b> <span class="badge bg-success ms-2"
+            <b>{{comment.user.username}}</b><span class="badge bg-success ms-2"
                 style="vertical-align: text-bottom; opacity: .8;">{{comment.timeStamp | naturaltime}}</span>
             <div>{{comment.comment}}</div>
+
+
+            <div class="reply mx-0 mt-2">
+                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false"
+                    aria-controls="replyBox{{comment.sno}}">
+                    Reply
+                </button>
+                <div class="collapse" id="replyBox{{comment.sno}}">
+                    <div class="card card-body mt-2 mx-0">
+                        <form action="/blog/postComment/" method="post">{% csrf_token %}
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Post Your Reply Here</label>
+                                <input class="form-control" type="text" name="comment" required>
+                            </div>
+                            <input type="hidden" name="postSno" value="{{post.sno}}">
+                            <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
+
 {% endblock body %}

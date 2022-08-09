@@ -20,12 +20,20 @@ def BlogPost(request, slug):
 def postComment(request):
     if request.method == "POST":    
         comment = request.POST["comment"]
-        user = request.user
         postSno = request.POST["postSno"] 
-        post = Post.objects.get(sno=postSno)
+        post = Post.objects.get(sno=postSno)   # finding the particular post with its sno
+        parentSno = request.POST["parentSno"]
+        user = request.user
 
-        comment = BlogComment(comment=comment, user=user, post=post)
-        comment.save()
-        messages.success(request,"Comment added successfully")
+        if parentSno == "":                 # when it is a parent comment itself
+            comment = BlogComment(comment=comment, user=user, post=post)
+            comment.save()
+            messages.success(request,"Comment added successfully")
+        
+        else:                               # when it is a child comment
+            parent = BlogComment.objects.get(sno=parentSno)     # finding the particular comment with its sno
+            comment = BlogComment(comment=comment, user=user, post=post, parent=parent)
+            comment.save()
+            messages.success(request,"Reply added successfully")
         
     return redirect(f'/blog/{post.slug}')
