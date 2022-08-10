@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponse
 from .models import Post, BlogComment          # added manually
 from django.contrib import messages            # added manually
-from blog.templatetags import extras           # added manually
+
 
 
 def BlogHome(request):
@@ -43,8 +43,11 @@ def postComment(request):
         # when it is a child comment , here parentSno is not null
         else:                               
             parent = BlogComment.objects.get(sno=parentSno)    # finding the particular comment with its sno
-            comment = BlogComment(comment=comment, user=user, post=post, parent=parent)
-            comment.save()
+            reply = BlogComment(comment=comment, user=user, post=post, parent=parent)
+            reply.save()
             messages.success(request,"Reply added successfully")
         
-    return redirect(f'/blog/{post.slug}')
+        return redirect(f'/blog/{post.slug}')
+    
+    else:
+       return HttpResponse("404 Not Found!")

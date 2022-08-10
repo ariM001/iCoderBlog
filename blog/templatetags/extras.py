@@ -1,3 +1,5 @@
+# below codes are written manually
+
 from django import template
 
 register = template.Library()
