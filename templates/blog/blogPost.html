@@ -17,7 +17,7 @@
                 <hr>
                 <img src="/media/{{post.image}}" class="rounded img-fluid d-flex mx-auto my-4"
                     style=" max-width: 400px;;" alt="{{post.image}}">
-                <p>{{post.content}}</p>
+                <p>{{post.content|safe}}</p>
             </article>
         </div>
         <div class="col-md-4">
@@ -88,8 +88,7 @@
                                 <input class="form-control" type="text" name="comment" required>
                             </div>
                             <input type="hidden" name="postSno" value="{{post.sno}}">
-                            <input type="hidden" name="parentSno" value="{{comment.sno}}">
-                            <!-- reply is saved under a particular parent comment -->
+                            <input type="hidden" name="parentSno" value="{{comment.sno}}"><!-- reply is saved under a particular parent comment -->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
