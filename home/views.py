@@ -10,7 +10,10 @@ from django.contrib.auth import authenticate, login, logout     # added manually
 
 # HTML pages
 def home(request):
-    return render(request, "home/home.html")
+    # Fetch top 3 posts and display them in the home page
+    top3posts = Post.objects.order_by('-views')[:3]
+    context = {'top3posts':top3posts}
+    return render(request, "home/home.html",context)
 
 
 def search(request):

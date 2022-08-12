@@ -13,7 +13,7 @@
         <div class="col-md-8">
             <article class="blog-post">
                 <h2 class="blog-post-title">{{post.title}}</h2>
-                <p class="blog-post-meta">{{post.timeStamp}} by <a href="#">{{post.author}}</a></p>
+                <p class="blog-post-meta">{{post.timeStamp}} by <a href="#">{{post.author}}</a> <span class="badge bg-success ms-2 opacity-75">{{post.views}} views</span></p>
                 <hr>
                 <p>{{post.content|safe}}</p>
             </article>

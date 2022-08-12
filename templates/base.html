@@ -167,8 +167,14 @@
   </div>
 
 
-  {% block js %}
-  {% endblock js %}
+
+  <script>
+    let previews = document.getElementsByClassName('contentPrview');
+    Array.from(previews).forEach((element) => {
+        element.innerHTML = element.innerText;
+    })
+</script>
+
   <!-- Optional JavaScript; choose one of the two! -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

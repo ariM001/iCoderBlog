@@ -11,10 +11,10 @@
         <div class="row g-0 border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
                 <a href="/blog/{{i.slug}}"><strong class="d-inline-block mb-2 text-primary">Post By :
-                        {{i.author}}</strong></a>
+                        {{i.author}}</strong><span class="badge bg-success mx-2">{{i.views}} views</span></a>
                 <h3 class="mb-0"><a href="/blog/{{i.slug}}" class="text-dark"
                         style="text-decoration: auto">{{i.title}}</a></h3>
-                <div class="mb-1 text-muted">{{i.timeStamp}}</div>
+                <div class="mb-1 text-muted">{{i.timeStamp}} </div>
                 <p class="card-text mb-auto">
                     <div class="contentPrview">{{i.content|safe|truncatechars:310}}</div>
                 </p>
@@ -31,12 +31,3 @@
 
 </div>
 {% endblock body %}
-
-{% block js %}
-<script>
-    let previews = document.getElementsByClassName('contentPrview');
-    Array.from(previews).forEach((element) => {
-        element.innerHTML = element.innerText;
-    })
-</script>
-{% endblock js %}
